@@ -13,15 +13,25 @@ class tarefa {
     }
 }
 
-tarefas = [];
+const updateTarefas = () => {
+    const listaTarefas = document.querySelector('ul#lista-tarefas');
+    listaTarefas.innerHTML = '';
+    tarefas.forEach((e) => {
+        e.adicionaNaPagina(listaTarefas);
+    });
+};
 
+tarefas = [];
 tarefas.push(new tarefa('prova Fisica I', 'estudos', false));
 tarefas.push(new tarefa('Comprar leite', 'compras', false));
 tarefas.push(new tarefa('Escutar chimbinha', 'lazer', true));
 
-let listaTarefas = document.querySelector('ul#lista-tarefas');
-listaTarefas.innerHTML = '';
+updateTarefas();
 
-tarefas.forEach((e) => {
-    e.adicionaNaPagina(listaTarefas);
+document.querySelector('#incluir-nova-tarefa').addEventListener('click', () => {
+    const name = document.querySelector('#nova-tarefa-nome');
+    const categoria = document.querySelector('#nova-tarefa-categoria');
+    tarefas.push(new tarefa(name.value, categoria.value, false));
+    updateTarefas();
+    name.value = '';
 });
